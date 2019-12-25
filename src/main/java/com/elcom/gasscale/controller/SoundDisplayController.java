@@ -13,9 +13,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elcom.gasscale.config.GeneralMessage;
@@ -41,7 +41,7 @@ public class SoundDisplayController extends GeneralMessage {
 		this.soundDisplayService = soundDisplayService;
 	}
 	
-	@PostMapping("/insert")
+	@RequestMapping(value = "/insert", method = RequestMethod.PUT)
 	public ResponseEntity<ResponseResult> insert(@RequestBody @Valid SoundDisplayDTO soundDisplayDTO, BindingResult bindingResult){
 		ResponseResult responseResult = new ResponseResult();
 		try {
@@ -64,7 +64,7 @@ public class SoundDisplayController extends GeneralMessage {
 		return ResponseEntity.ok(responseResult);
 	} 
 	
-	@PostMapping("/update")
+	@RequestMapping(value = "/update", method = RequestMethod.PUT)
 	public ResponseEntity<ResponseResult> update(@RequestBody @Valid SoundDisplayDTO soundDisplayDTO, BindingResult bindingResult){
 		ResponseResult responseResult = new ResponseResult();
 		try {

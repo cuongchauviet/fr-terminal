@@ -12,9 +12,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elcom.gasscale.config.GeneralMessage;
@@ -40,8 +40,8 @@ public class ParameterEnvironmentSystemController extends GeneralMessage {
 		this.parameterEnvironmentSystemService = parameterEnvironmentSystemService;
 	}
 	
-	@PostMapping("/insert")
-	@ApiOperation(value = "insert")
+	@RequestMapping(value = "/insert", method = RequestMethod.PUT)
+	@ApiOperation(value = "insert data")
 	public ResponseEntity<ResponseResult> insert(@RequestBody @Valid ParameterEnvironmentSystemDTO parameterEnvironmentSystemDTO, BindingResult bindingResult){
 		ResponseResult responseResult = new ResponseResult();
 		try {
@@ -64,8 +64,8 @@ public class ParameterEnvironmentSystemController extends GeneralMessage {
 		return ResponseEntity.ok(responseResult);
 	} 
 	
-	@PostMapping("/update")
-	@ApiOperation(value = "update by id")
+	@RequestMapping(value = "/update", method = RequestMethod.PUT)
+	@ApiOperation(value = "update data")
 	public ResponseEntity<ResponseResult> update(@RequestBody @Valid ParameterEnvironmentSystemDTO parameterEnvironmentSystemDTO, BindingResult bindingResult){
 		ResponseResult responseResult = new ResponseResult();
 		try {
