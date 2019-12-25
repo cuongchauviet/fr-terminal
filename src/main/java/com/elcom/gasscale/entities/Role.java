@@ -6,6 +6,7 @@ package com.elcom.gasscale.entities;
 import java.io.Serializable;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -44,6 +45,6 @@ public class Role implements Serializable {
 	private String name;
 	
 	@JsonIgnoreProperties(value = {"roles"})
-	@ManyToMany(mappedBy = "roles")
+	@ManyToMany(mappedBy = "roles", cascade = CascadeType.ALL)
 	private Set<User> users;
 }

@@ -5,6 +5,7 @@ package com.elcom.gasscale.service;
 
 import java.util.List;
 
+import com.elcom.gasscale.dto.UpdatePasswordDTO;
 import com.elcom.gasscale.dto.UserDTO;
 import com.elcom.gasscale.entities.User;
 import com.elcom.gasscale.exception.ResourceNotFoundException;
@@ -22,5 +23,7 @@ public interface UserService {
 	public void updateUser(User user) throws ResourceNotFoundException;
 	
 	public boolean insertUser(UserDTO userDTO) throws ResourceNotFoundException;
+	
+	public boolean updatePassword(UpdatePasswordDTO updatePasswordDTO) throws Exception;
 	
 }

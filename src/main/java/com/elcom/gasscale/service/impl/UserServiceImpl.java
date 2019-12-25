@@ -13,6 +13,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.elcom.gasscale.config.GeneralMessage;
+import com.elcom.gasscale.dto.UpdatePasswordDTO;
 import com.elcom.gasscale.dto.UserDTO;
 import com.elcom.gasscale.entities.Role;
 import com.elcom.gasscale.entities.User;
@@ -47,7 +48,6 @@ public class UserServiceImpl extends GeneralMessage implements UserService {
     
 	@Override
 	public User getUserById(int id) throws ResourceNotFoundException {
-		// TODO Auto-generated method stub
 		return userRepository.getOne(id);
 	}
 
@@ -63,22 +63,38 @@ public class UserServiceImpl extends GeneralMessage implements UserService {
 			throw new ResourceNotFoundException(messageFormDataNull);
 		}
 		User userResult = null;
-		if(userRepository.findByPhone(userDTO.getPhone()) == null) {
+		if(userRepository.findByUser(userDTO.getUser()) == null) {
 			User user = modelMapper.map(userDTO, User.class);
 			HashSet<Role> roles = new HashSet<>();
 			roles.add(roleRepository.findByName(userDTO.getRole()));
 			user.setRoles(roles);
 			user.setPwd(passwordEncoder.encode(userDTO.getPwd()));
+			System.out.println(user);
 			userResult = userRepository.save(user);
 		} else {
 			throw new ResourceNotFoundException(messageRecordExist);
 		}
-		return userResult != null ? true : false;
+		return userResult != null;
 	}
 
 	@Override
 	public List<User> getAllUser() throws Exception {
 		return userRepository.findAll();
+	}
+
+	@Override
+	public boolean updatePassword(UpdatePasswordDTO updatePasswordDTO) throws Exception {
+		if(!updatePasswordDTO.matchNewAndOldPassword()) {
+			throw new Exception(exceptionPasswordMatch);
+		}
+		User user = userRepository.getByUser(updatePasswordDTO.getUser()).orElseThrow(() -> new Exception(exceptionUserMatch+ updatePasswordDTO.getUser()));
+		if(!passwordEncoder.matches(updatePasswordDTO.getPwdOld(), user.getPwd())) {
+			throw new Exception(exceptionPasswordInvalid);
+		}
+		String passsword = passwordEncoder.encode(updatePasswordDTO.getPwdNew());
+		user.setPwd(passsword);
+		User userResult = userRepository.save(user);
+		return userResult != null;
 	}
 
 }

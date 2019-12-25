@@ -24,18 +24,21 @@ import org.springframework.web.bind.annotation.RestController;
 import com.elcom.gasscale.config.GeneralMessage;
 import com.elcom.gasscale.config.JwtTokenUtil;
 import com.elcom.gasscale.dto.LoginDTO;
+import com.elcom.gasscale.dto.UpdatePasswordDTO;
 import com.elcom.gasscale.dto.UserDTO;
 import com.elcom.gasscale.entities.User;
 import com.elcom.gasscale.model.ResponseResult;
 import com.elcom.gasscale.service.UserService;
 import com.elcom.gasscale.service.impl.JwtUserDetailsService;
 
+import io.swagger.annotations.ApiOperation;
+
 /**
  * @author cuongcv
  *
  */
 @RestController
-@RequestMapping("api/user")
+@RequestMapping("admin/user")
 public class UserController extends GeneralMessage {
 	
 	private final UserService userService;
@@ -49,6 +52,30 @@ public class UserController extends GeneralMessage {
 	@Autowired
 	public UserController(UserService userService) {
 		this.userService = userService;
+	}
+	
+	@RequestMapping(value = "/password/update", method = RequestMethod.PUT)
+	@ApiOperation(value = "Allows admin update password.")
+	public ResponseEntity<ResponseResult> updateUserPassword(@RequestBody @Valid UpdatePasswordDTO updatePasswordDTO, BindingResult bindingResult){
+		ResponseResult responseResult = new ResponseResult();
+		try {
+			if(!bindingResult.hasErrors()) {
+				if(userService.updatePassword(updatePasswordDTO)) {
+					responseResult.setSuccess(true);
+					responseResult.setMessage(updateSuccess);
+				} else {
+					responseResult.setMessage(updateError);
+				}
+			}else {
+				responseResult.setSuccess(false);
+				responseResult.setError(bindingResult.getFieldError());
+				responseResult.setMessage(messageErrorTotal + bindingResult.getErrorCount());
+			}
+		} catch (Exception e) {
+			responseResult.setSuccess(false);
+			responseResult.setMessage(e.getMessage());
+		}
+		return ResponseEntity.ok(responseResult);
 	}
 	
 	@GetMapping("/getById/{id}")
@@ -91,12 +118,13 @@ public class UserController extends GeneralMessage {
 	}
 	
 	@PostMapping("/login")
+	@ApiOperation(value = "Allows the user login.")
 	public ResponseEntity<ResponseResult> login(@RequestBody @Valid LoginDTO loginDTO, BindingResult bindingResult){
 		ResponseResult responseResult = new ResponseResult();
 		try {
 			if(!bindingResult.hasErrors()) {
-				jwtTokenUtil.authenticate(loginDTO.getPhone(), loginDTO.getPwd());
-				final UserDetails userDetails = userDetailsService.loadUserByUsername(loginDTO.getPhone());
+				jwtTokenUtil.authenticate(loginDTO.getUser(), loginDTO.getPwd());
+				final UserDetails userDetails = userDetailsService.loadUserByUsername(loginDTO.getUser());
 				final String token = jwtTokenUtil.generateToken(userDetails);
 				responseResult.setSuccess(true);
 				responseResult.setData(token);
@@ -123,7 +151,6 @@ public class UserController extends GeneralMessage {
 				} else {
 					responseResult.setMessage(insertError);
 				}
-				responseResult.setData(null);
 			}else {
 				responseResult.setSuccess(false);
 				responseResult.setError(bindingResult.getFieldError());

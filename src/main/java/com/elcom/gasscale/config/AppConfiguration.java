@@ -75,12 +75,10 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter{
 		                "/configuration/security",
 		                "/swagger-ui.html",
 		                "/webjars/**").permitAll()
-				.antMatchers("/api/user/register").permitAll()
-				.antMatchers("/api/user/forgot").permitAll()
-				.antMatchers("/api/user/login").permitAll()
-				.antMatchers("/api/user/insert").permitAll()
-				.antMatchers("/api/type-gas-tank/insert").permitAll()
-				.antMatchers("/admin/*").hasRole("ADMIN")
+				.antMatchers("/admin/user/register").permitAll()
+				.antMatchers("/admin/user/forgot").permitAll()
+				.antMatchers("/admin/user/login").permitAll()
+				.antMatchers("/api/user/insert", "/api/user/getAll","/api/user/password/update").hasRole("ADMIN")
 				// all other requests need to be authenticated
 				.anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to
@@ -90,50 +88,5 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter{
 		// Add a filter to validate the tokens with every request
 		httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 	}
-	
-//	@Bean
-//	public PasswordEncoder passwordEncoder() {
-//		return new BCryptPasswordEncoder();
-//	}
-//	
-//	@Autowired
-//	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder());
-//	}
-//	
-//	
-//	
-//	@Bean(BeanIds.AUTHENTICATION_MANAGER)
-//    @Override
-//    public AuthenticationManager authenticationManagerBean() throws Exception {
-//        // Get AuthenticationManager bean
-//        return super.authenticationManagerBean();
-//    }
-//	
-//	
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.userDetailsService(customUserDetailService).passwordEncoder(passwordEncoder());
-//	}
-//
-//	@Override
-//	protected void configure(HttpSecurity http) throws Exception {
-//		http
-//		.csrf().disable().authorizeRequests()
-//		.antMatchers("/v2/api-docs",
-//                "/configuration/ui",
-//                "/swagger-resources/**",
-//                "/configuration/security",
-//                "/swagger-ui.html",
-//                "/webjars/**").permitAll()
-//		.antMatchers("/api/user/register").permitAll()
-//		.antMatchers("/api/user/forgot").permitAll()
-//		.antMatchers("/api/user/login").permitAll()
-//		.antMatchers("/api/user/insert").permitAll()
-//		.antMatchers("/api/type-gas-tank/insert").permitAll()
-//		.anyRequest().authenticated()
-//		.and()
-//		.addFilterBefore(new JWTAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
-//	}
 	
 }

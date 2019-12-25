@@ -4,7 +4,6 @@
 package com.elcom.gasscale.dto;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import lombok.AllArgsConstructor;
@@ -21,8 +20,8 @@ import lombok.NoArgsConstructor;
 public class LoginDTO {
 	
 	@NotBlank
-	@Pattern(regexp="(^$|[0-9]{10})", message = "{validate.message.number}")
-	private String phone;
+	@Size(min = 3, max = 50, message = "{validate.message.min.max}")
+	private String user;
 	
 	@NotBlank
 	@Size(min = 3, max = 50, message = "{validate.message.min.max}")

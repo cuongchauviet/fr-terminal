@@ -55,4 +55,13 @@ public class GeneralMessage {
 	@Value("${message.record.exist}")
 	protected String messageRecordExist;
 	
+	@Value("${exception.password.match}")
+	protected String exceptionPasswordMatch;
+	
+	@Value("${exception.user.match}")
+	protected String exceptionUserMatch;
+	
+	@Value("${exception.password.invalid}")
+	protected String exceptionPasswordInvalid;
+	
 }
