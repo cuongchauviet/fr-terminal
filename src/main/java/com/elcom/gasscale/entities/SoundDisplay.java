@@ -59,7 +59,8 @@ public class SoundDisplay extends GeneralEntity implements Serializable {
 	private byte verifyFailGuiTip;
 	
 	@NotNull
-	@Column(name="unregistered_gui_tip")
+	@Column(name="ip_device")
 	@Range(min = 0, max = 2, message = "{validate.message.min.max}")
-	private byte unregisteredGuiTip;
+	private byte ipDevice;
+	
 }

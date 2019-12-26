@@ -33,7 +33,11 @@ public class UpdatePasswordDTO {
     @Size(min = 3, max = 50, message = "{validate.message.min.max}")
 	private String pwdNew;
 	
-	public boolean matchNewAndOldPassword() {
-		return this.getPwdOld().equals(this.getPwdNew());
+	@NotBlank
+    @Size(min = 3, max = 50, message = "{validate.message.min.max}")
+	private String confirmPwd;
+	
+	public boolean matchNewAndConfirmPassword() {
+		return this.getPwdNew().equals(this.getConfirmPwd());
 	}
 }

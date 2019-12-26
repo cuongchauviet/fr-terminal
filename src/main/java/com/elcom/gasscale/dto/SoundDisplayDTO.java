@@ -25,17 +25,28 @@ public class SoundDisplayDTO {
 	private long id;
 	
 	@NotNull
-	@Range(min = 50, max = 100, message = "{validate.message.min.max}")
-	private short faceThreshold;
-	
 	@Range(min = 0, max = 10, message = "{validate.message.min.max}")
-	private short opendoorWay;
+	private short verifySuccAudio;
 	
+	@NotNull
 	@Range(min = 0, max = 10, message = "{validate.message.min.max}")
-	private short verifyMode;
+	private short verifyFailAudio;
 	
-	@Digits(integer = 10 , fraction = 0)
-	private int verifyResetTime;
+	@NotNull
+	@Range(min = 0, max = 100, message = "{validate.message.min.max}")
+	private short volume;
+	
+	@NotNull
+	@Range(min = 0, max = 2, message = "{validate.message.min.max}")
+	private short verifySuccGuiTip;
+	
+	@NotNull
+	@Range(min = 0, max = 2, message = "{validate.message.min.max}")
+	private short verifyFailGuiTip;
+	
+	@NotNull
+	@Range(min = 0, max = 2, message = "{validate.message.min.max}")
+	private short ipDevice;
 	
 	@Digits(integer = 10, message = "{validate.message.length}" + 10, fraction = 0)
 	private long createTime;

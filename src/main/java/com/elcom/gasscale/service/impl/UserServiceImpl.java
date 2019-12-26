@@ -84,7 +84,7 @@ public class UserServiceImpl extends GeneralMessage implements UserService {
 
 	@Override
 	public boolean updatePassword(UpdatePasswordDTO updatePasswordDTO) throws Exception {
-		if(!updatePasswordDTO.matchNewAndOldPassword()) {
+		if(!updatePasswordDTO.matchNewAndConfirmPassword()) {
 			throw new Exception(exceptionPasswordMatch);
 		}
 		User user = userRepository.getByUser(updatePasswordDTO.getUser()).orElseThrow(() -> new Exception(exceptionUserMatch+ updatePasswordDTO.getUser()));
