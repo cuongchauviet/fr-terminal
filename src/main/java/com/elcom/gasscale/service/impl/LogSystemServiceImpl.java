@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.elcom.gasscale.config.GeneralMessage;
 import com.elcom.gasscale.dto.LogSystemDTO;
@@ -18,6 +19,7 @@ import com.elcom.gasscale.service.LogSystemService;
  * @author cuongcv
  *
  */
+@Service
 public class LogSystemServiceImpl extends GeneralMessage implements LogSystemService {
 	
 	private final LogSystemReporitory logSystemReporitory;
@@ -36,12 +38,13 @@ public class LogSystemServiceImpl extends GeneralMessage implements LogSystemSer
 	}
 
 	@Override
-	public void insert(LogSystemDTO logSystemDTO) throws Exception {
+	public boolean insert(LogSystemDTO logSystemDTO) throws Exception {
 		if(logSystemDTO == null) {
 			throw new Exception(messageFormDataNull);
 		}
 		LogSystem logSystem = modelMapper.map(logSystemDTO, LogSystem.class);
-		logSystemReporitory.save(logSystem);
+		LogSystem  logSystemResult = logSystemReporitory.save(logSystem);
+		return logSystemResult != null;
 	}
 
 	@Override

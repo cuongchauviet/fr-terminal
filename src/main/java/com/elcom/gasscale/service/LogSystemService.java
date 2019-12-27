@@ -16,7 +16,7 @@ public interface LogSystemService {
 	
 	public LogSystem getById(int id) throws Exception;
 	
-	public void insert(LogSystemDTO logSystemDTO) throws Exception;
+	public boolean insert(LogSystemDTO logSystemDTO) throws Exception;
 	
 	public boolean update(LogSystemDTO logSystemDTO) throws Exception;
 	
