@@ -22,6 +22,6 @@ public interface LogSystemService {
 	
 	public void delete(int id) throws Exception;
 	
-	public List<LogSystem> getAll() throws Exception;
+	public List<LogSystem> getAll(long startTime, long endTime, byte dataType, int pageNumber, int pageSize, String sortCol, String sortDirect) throws Exception;
 	
 }

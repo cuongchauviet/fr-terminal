@@ -22,5 +22,5 @@ public interface UserFaceService {
 	
 	public boolean delete(int id) throws Exception;
 	
-	public List<UserFace> getAll() throws Exception;
+	public List<UserFace> getAll(int pageNumber, int pageSize, String sortCol, String sortDirect) throws Exception;
 }

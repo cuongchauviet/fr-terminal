@@ -66,7 +66,9 @@ public class UserServiceImpl extends GeneralMessage implements UserService {
 		if(userRepository.findByUser(userDTO.getUser()) == null) {
 			User user = modelMapper.map(userDTO, User.class);
 			HashSet<Role> roles = new HashSet<>();
-			roles.add(roleRepository.findByName(userDTO.getRole()));
+			for (String role : userDTO.getRole()) {
+				roles.add(roleRepository.findByName(role));
+			}
 			user.setRoles(roles);
 			user.setPwd(passwordEncoder.encode(userDTO.getPwd()));
 			System.out.println(user);

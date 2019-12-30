@@ -40,5 +40,5 @@ public class GeneralEntity {
 	private int updateTime;
 	
 	@Column(name = "status", length = 1)
-	private short status; 
+	private byte status; 
 }

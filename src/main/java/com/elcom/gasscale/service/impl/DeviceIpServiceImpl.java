@@ -13,6 +13,7 @@ import com.elcom.gasscale.config.GeneralMessage;
 import com.elcom.gasscale.dto.DeviceIpDTO;
 import com.elcom.gasscale.entities.DeviceIp;
 import com.elcom.gasscale.exception.ResourceNotFoundException;
+import com.elcom.gasscale.logic.PageableEnum;
 import com.elcom.gasscale.repository.DeviceIpRepository;
 import com.elcom.gasscale.service.DeviceIpService;
 
@@ -67,7 +68,7 @@ public class DeviceIpServiceImpl extends GeneralMessage implements DeviceIpServi
 	@Override
 	public boolean delete(int id) throws Exception {
 		DeviceIp deviceIp = deviceIpRepository.getById(id).orElseThrow(()-> new Exception(messageRecordNotExist));
-		deviceIp.setStatus((short)1);
+		deviceIp.setStatus(PageableEnum.STATUS_DISABLE);
 		DeviceIp deviceIpResult = deviceIpRepository.save(deviceIp);
 		return deviceIpResult != null;
 	}

@@ -33,6 +33,7 @@ import com.elcom.gasscale.service.UserService;
 import com.elcom.gasscale.service.impl.JwtUserDetailsService;
 
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 
 /**
  * @author cuongcv
@@ -121,7 +122,7 @@ public class UserController extends GeneralMessage {
 	
 	@PostMapping("/login")
 	@ApiOperation(value = "Allows the user login.")
-	public ResponseEntity<ResponseResult> login(@RequestBody @Valid LoginDTO loginDTO, BindingResult bindingResult){
+	public ResponseEntity<ResponseResult> login(@ApiParam(value = "The register payload") @RequestBody @Valid LoginDTO loginDTO, BindingResult bindingResult){
 		ResponseResult responseResult = new ResponseResult();
 		try {
 			if(!bindingResult.hasErrors()) {

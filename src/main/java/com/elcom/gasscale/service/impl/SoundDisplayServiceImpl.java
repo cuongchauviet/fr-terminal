@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.elcom.gasscale.config.GeneralMessage;
 import com.elcom.gasscale.dto.SoundDisplayDTO;
 import com.elcom.gasscale.entities.SoundDisplay;
+import com.elcom.gasscale.logic.PageableEnum;
 import com.elcom.gasscale.repository.SoundDisplayRepository;
 import com.elcom.gasscale.service.SoundDisplayService;
 
@@ -57,7 +58,7 @@ public class SoundDisplayServiceImpl extends GeneralMessage implements SoundDisp
 	@Override
 	public boolean delete(int id) throws Exception {
 		SoundDisplay soundDisplay = soundDisplayRepository.getById(id).orElseThrow(() -> new Exception(messageRecordNotExist));
-		soundDisplay.setStatus((short)1);
+		soundDisplay.setStatus(PageableEnum.STATUS_DISABLE);
 		SoundDisplay soundDisplayResult = soundDisplayRepository.save(soundDisplay); 
 		return soundDisplayResult != null;
 	}

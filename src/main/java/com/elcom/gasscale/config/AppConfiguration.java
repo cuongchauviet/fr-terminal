@@ -17,6 +17,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.elcom.gasscale.logic.RoleNameEnum;
+
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
@@ -79,7 +82,7 @@ public class AppConfiguration extends WebSecurityConfigurerAdapter{
 				.antMatchers("/admin/user/register").permitAll()
 				.antMatchers("/admin/user/forgot").permitAll()
 				.antMatchers("/admin/user/login").permitAll()
-				.antMatchers("/api/user/insert", "/api/user/getAll","/api/user/password/update").hasRole("ADMIN")
+				.antMatchers("/api/user/insert", "/api/user/getAll","/api/user/password/update").hasRole(RoleNameEnum.ADMIN)
 				// all other requests need to be authenticated
 				.anyRequest().authenticated().and().
 				// make sure we use stateless session; session won't be used to

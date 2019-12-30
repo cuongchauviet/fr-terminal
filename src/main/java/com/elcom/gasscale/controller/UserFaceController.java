@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.elcom.gasscale.config.GeneralMessage;
 import com.elcom.gasscale.dto.UserFaceDTO;
 import com.elcom.gasscale.entities.UserFace;
+import com.elcom.gasscale.logic.PageableEnum;
 import com.elcom.gasscale.model.ResponseResult;
 import com.elcom.gasscale.service.UserFaceService;
 
@@ -112,10 +114,14 @@ public class UserFaceController extends GeneralMessage {
 	}
 	
 	@GetMapping("/getAll")
-	public ResponseEntity<ResponseResult> getAll(){
+	public ResponseEntity<ResponseResult> getAll(
+			@RequestParam("pageNumber") int pageNumber, @RequestParam("pageSize") int pageSize,
+			@RequestParam(value = "sortCol", required = false, defaultValue = PageableEnum.CREATE_TIME) String sortCol,
+            @RequestParam(value = "sortDirect", required = false, defaultValue = PageableEnum.ASC) String sortDirect
+			){
 		ResponseResult responseResult = new ResponseResult();
 		try {
-			List<UserFace> userFaces = userFaceService.getAll();
+			List<UserFace> userFaces = userFaceService.getAll(pageNumber, pageSize, sortCol, sortDirect);
 			if(!userFaces.isEmpty()) {
 				responseResult.setSuccess(true);
 				responseResult.setMessage(getDataSuccess);

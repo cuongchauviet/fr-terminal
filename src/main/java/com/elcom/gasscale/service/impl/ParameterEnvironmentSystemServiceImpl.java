@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.elcom.gasscale.config.GeneralMessage;
 import com.elcom.gasscale.dto.ParameterEnvironmentSystemDTO;
 import com.elcom.gasscale.entities.ParameterEnvironmentSystem;
+import com.elcom.gasscale.logic.PageableEnum;
 import com.elcom.gasscale.repository.ParameterEnvironmentSystemRepository;
 import com.elcom.gasscale.service.ParameterEnvironmentSystemService;
 
@@ -61,7 +62,7 @@ public class ParameterEnvironmentSystemServiceImpl extends GeneralMessage implem
 	@Override
 	public boolean delete(int id) throws Exception {
 		ParameterEnvironmentSystem parameterEnvironmentSystem = parameterEnvironmentSystemRepository.getById(id).orElseThrow(() -> new Exception(messageRecordNotExist));
-		parameterEnvironmentSystem.setStatus((short)1);
+		parameterEnvironmentSystem.setStatus(PageableEnum.STATUS_DISABLE);
 		ParameterEnvironmentSystem parameterEnvironmentSystemResult = parameterEnvironmentSystemRepository.save(parameterEnvironmentSystem); 
 		return parameterEnvironmentSystemResult != null;
 	}

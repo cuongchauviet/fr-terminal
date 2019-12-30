@@ -13,6 +13,7 @@ import com.elcom.gasscale.config.GeneralMessage;
 import com.elcom.gasscale.dto.TimeSystemDTO;
 import com.elcom.gasscale.entities.TimeSystem;
 import com.elcom.gasscale.exception.ResourceNotFoundException;
+import com.elcom.gasscale.logic.PageableEnum;
 import com.elcom.gasscale.repository.TimeSystemRepository;
 import com.elcom.gasscale.service.TimeSystemService;
 
@@ -67,7 +68,7 @@ public class TimeSystemServiceImpl extends GeneralMessage implements TimeSystemS
 	@Override
 	public boolean delete(int id) throws ResourceNotFoundException {
 		TimeSystem timeSystem = timeSystemRepository.getById(id).orElseThrow(() -> new ResourceNotFoundException(messageRecordNotExist));
-		timeSystem.setStatus((short)1);
+		timeSystem.setStatus(PageableEnum.STATUS_DISABLE);
 		TimeSystem timeSystemResult = timeSystemRepository.save(timeSystem); 
 		return timeSystemResult != null;
 	}

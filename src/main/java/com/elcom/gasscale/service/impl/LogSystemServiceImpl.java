@@ -7,11 +7,15 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.elcom.gasscale.config.GeneralMessage;
 import com.elcom.gasscale.dto.LogSystemDTO;
 import com.elcom.gasscale.entities.LogSystem;
+import com.elcom.gasscale.logic.PageableLogic;
 import com.elcom.gasscale.repository.LogSystemReporitory;
 import com.elcom.gasscale.service.LogSystemService;
 
@@ -59,8 +63,10 @@ public class LogSystemServiceImpl extends GeneralMessage implements LogSystemSer
 	}
 
 	@Override
-	public List<LogSystem> getAll() throws Exception {
-		return logSystemReporitory.getAll();
+	public List<LogSystem> getAll(long startTime, long endTime, byte dataType, int pageNumber, int pageSize, String sortCol, String sortDirect) throws Exception {
+		Sort sort = PageableLogic.sortSetDefault(sortCol, sortDirect);
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+		return logSystemReporitory.getAll((int)startTime, (int)endTime, dataType, pageable);
 	}
 
 }

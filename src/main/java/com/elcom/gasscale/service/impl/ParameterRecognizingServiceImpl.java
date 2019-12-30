@@ -13,6 +13,7 @@ import com.elcom.gasscale.config.GeneralMessage;
 import com.elcom.gasscale.dto.ParameterRecognizingDTO;
 import com.elcom.gasscale.entities.ParameterRecognizing;
 import com.elcom.gasscale.exception.ResourceNotFoundException;
+import com.elcom.gasscale.logic.PageableEnum;
 import com.elcom.gasscale.repository.ParameterRecognizingRepository;
 import com.elcom.gasscale.service.ParameterRecognizingService;
 
@@ -73,7 +74,7 @@ public class ParameterRecognizingServiceImpl extends GeneralMessage implements P
 		if(parameterRecognizing == null) {
 			throw new ResourceNotFoundException(messageRecordNotExist);
 		}
-		parameterRecognizing.setStatus((short)1);
+		parameterRecognizing.setStatus(PageableEnum.STATUS_DISABLE);
 		ParameterRecognizing userResult = parameterRecognizingRepository.save(parameterRecognizing);
 		return userResult != null;
 	}

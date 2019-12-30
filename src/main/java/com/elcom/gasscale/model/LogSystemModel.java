@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.elcom.gasscale.dto;
+package com.elcom.gasscale.model;
 
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Size;
@@ -19,7 +19,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class LogSystemDTO {
+public class LogSystemModel {
+
 	@Digits(integer = 10 , fraction = 0, message = "{validate.message.length}" + "10")
 	private long id;
 	
@@ -35,9 +36,4 @@ public class LogSystemDTO {
 	@Size(min = 0, max = 100, message = "{validate.message.min.max}")
 	private String note;
 	
-	@Digits(integer = 10, message = "{validate.message.length}" + 10, fraction = 0)
-	private long createTime;
-    
-	@Digits(integer = 10, message = "{validate.message.length}" + 10, fraction = 0)
-	private long updateTime;
 }

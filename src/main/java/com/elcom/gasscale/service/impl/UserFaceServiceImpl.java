@@ -7,11 +7,15 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.elcom.gasscale.config.GeneralMessage;
 import com.elcom.gasscale.dto.UserFaceDTO;
 import com.elcom.gasscale.entities.UserFace;
+import com.elcom.gasscale.logic.PageableLogic;
 import com.elcom.gasscale.repository.UserFaceRepository;
 import com.elcom.gasscale.service.UserFaceService;
 
@@ -62,14 +66,16 @@ public class UserFaceServiceImpl extends GeneralMessage implements UserFaceServi
 	@Override
 	public boolean delete(int id) throws Exception {
 		UserFace userFace = userFaceRepository.getById(id).orElseThrow(() -> new Exception(messageRecordNotExist));
-		userFace.setStatus((short)1);
+		userFace.setStatus((byte)1);
 		UserFace userFaceResult = userFaceRepository.save(userFace); 
 		return userFaceResult != null;
 	}
 
 	@Override
-	public List<UserFace> getAll() throws Exception {
-		return userFaceRepository.getAll();
+	public List<UserFace> getAll(int pageNumber, int pageSize, String sortCol, String sortDirect) throws Exception {
+		Sort sort = PageableLogic.sortSetDefault(sortCol, sortDirect);
+		Pageable pageable = PageRequest.of(pageNumber, pageSize, sort);
+		return userFaceRepository.getAll(pageable);
 	}
 
 }
