@@ -48,12 +48,12 @@ public class ParameterEnvironmentSystemController extends GeneralMessage {
 		ResponseResult responseResult = new ResponseResult();
 		try {
 			if(!bindingResult.hasErrors()) {
-				if(parameterEnvironmentSystemService.insert(parameterEnvironmentSystemDTO)) {
-					responseResult.setSuccess(true);
-					responseResult.setMessage(insertSuccess);
-				}else {
-					responseResult.setMessage(insertError);
-				}
+//				if(parameterEnvironmentSystemService.insert(parameterEnvironmentSystemDTO)) {
+//					responseResult.setSuccess(true);
+//					responseResult.setMessage(insertSuccess);
+//				}else {
+//					responseResult.setMessage(insertError);
+//				}
 			}else {
 				responseResult.setSuccess(false);
 				responseResult.setError(bindingResult.getFieldError());

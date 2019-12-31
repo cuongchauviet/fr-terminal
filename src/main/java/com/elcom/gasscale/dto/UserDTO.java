@@ -18,10 +18,12 @@ public class UserDTO {
 	
 	@NotBlank
     @Size(min = 3, max = 50, message = "{validate.message.min.max}")
+	@ApiModelProperty(value = "Tên user đăng nhập", required = true)
     private String user;
 	
 	@NotBlank
     @Size(min = 3, max = 50, message = "{validate.message.min.max}")
+	@ApiModelProperty(value = "Password đăng nhập", required = true)
 	private String pwd;
 	
 	@Digits(integer = 10, fraction = 0, message = "{validate.message.length}" + "10")
