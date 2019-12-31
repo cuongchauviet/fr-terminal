@@ -33,10 +33,10 @@ public class GeneralEntity {
 	@Column(name = "id", length = 10)
 	private int id;
 	
-	@Column(name = "create_time", length = 10, nullable = false)
+	@Column(name = "create_time", length = 10, nullable = false, insertable=true, updatable=false)
 	private int createTime;
 	
-	@Column(name = "update_time", length = 10, nullable = false)
+	@Column(name = "update_time", length = 10, nullable = false, insertable=false, updatable=true)
 	private int updateTime;
 	
 	@Column(name = "status", length = 1)

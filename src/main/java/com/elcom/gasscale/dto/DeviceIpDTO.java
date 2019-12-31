@@ -73,5 +73,4 @@ public class DeviceIpDTO {
 	@Digits(integer = 10, message = "{validate.message.length}" + "10", fraction = 0)
 	@ApiModelProperty(value = "Ngày update")
 	private long updateTime;
-	
 }

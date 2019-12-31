@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import com.elcom.gasscale.config.GeneralMessage;
 import com.elcom.gasscale.dto.LogSystemDTO;
 import com.elcom.gasscale.entities.LogSystem;
+import com.elcom.gasscale.exception.ResourceNotFoundException;
 import com.elcom.gasscale.logic.PageableLogic;
 import com.elcom.gasscale.repository.LogSystemReporitory;
 import com.elcom.gasscale.service.LogSystemService;
@@ -53,8 +54,13 @@ public class LogSystemServiceImpl extends GeneralMessage implements LogSystemSer
 
 	@Override
 	public boolean update(LogSystemDTO logSystemDTO) throws Exception {
-		// TODO Auto-generated method stub
-		return false;
+		if(logSystemDTO == null) {
+			throw new ResourceNotFoundException(messageFormDataNull);
+		}
+		LogSystem logSystem = logSystemReporitory.getById((int)logSystemDTO.getId()).orElseThrow(()-> new Exception(messageRecordNotExist));
+		modelMapper.map(logSystemDTO, logSystem);
+		LogSystem logSystemResult = logSystemReporitory.save(logSystem);
+		return logSystemResult != null;
 	}
 
 	@Override
