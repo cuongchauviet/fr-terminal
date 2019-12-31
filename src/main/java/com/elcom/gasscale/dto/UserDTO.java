@@ -38,6 +38,6 @@ public class UserDTO {
 	
 	@NotEmpty
 	@ApiModelProperty(value = "role", name = "addLines", dataType = "List",
-		    example = "[ROLE_MEMBER,ROLE_USER]")
+		    example = "[ROLE_MEMBER,ROLE_USER]", required = true)
 	private List<String> role;
 }
